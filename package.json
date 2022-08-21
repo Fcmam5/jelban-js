@@ -11,7 +11,8 @@
     "lint": "eslint . --ext .ts",
     "lint:fix": "npm run lint -- --fix",
     "format": "prettier --write .",
-    "format:check": "prettier --check src/**/*.ts"
+    "format:check": "prettier --check src/**/*.ts",
+    "mutate": "stryker run"
   },
   "repository": {
     "type": "git",
@@ -29,7 +30,10 @@
   },
   "homepage": "https://github.com/Fcmam5/jelbann-js#readme",
   "devDependencies": {
-    "@types/jest": "^28.1.1",
+    "@stryker-mutator/core": "^6.1.2",
+    "@stryker-mutator/jest-runner": "^6.1.2",
+    "@stryker-mutator/typescript-checker": "^6.1.2",
+    "@types/jest": "^28.1.7",
     "@typescript-eslint/eslint-plugin": "^5.28.0",
     "@typescript-eslint/parser": "^5.28.0",
     "eslint": "^8.17.0",
