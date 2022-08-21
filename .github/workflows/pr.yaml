@@ -6,10 +6,16 @@ on:
     branches:
       - develop
       - main
+  push:
+    branches:
+      - main
+      - develop
 
 jobs:
-  buildAndRenderFile:
-    name: Build script and render example.yaml
+  buildAndTest:
+    env:
+      STRYKER_DASHBOARD_API_KEY: ${{ secrets.STRYKER_DASHBOARD_API_KEY }}
+    name: Build and test
     runs-on: ubuntu-latest
 
     strategy:
