@@ -1,8 +1,14 @@
 # jelBAN.js
 
-[![Mutation testing badge](https://img.shields.io/endpoint?style=flat&url=https%3A%2F%2Fbadge-api.stryker-mutator.io%2Fgithub.com%2FFcmam5%2Fjelban-js%2Fdevelop)](https://dashboard.stryker-mutator.io/reports/github.com/Fcmam5/jelban-js/develop) ![Known Vulnerabilities](https://snyk.io/test/github/Fcmam5/jelban-js/badge.svg)
+[![Mutation testing badge](https://img.shields.io/endpoint?style=flat&url=https%3A%2F%2Fbadge-api.stryker-mutator.io%2Fgithub.com%2FFcmam5%2Fjelban-js%2Fdevelop)](https://dashboard.stryker-mutator.io/reports/github.com/Fcmam5/jelban-js/develop) ![Known Vulnerabilities](https://snyk.io/test/github/Fcmam5/jelban-js/badge.svg) [![codecov](https://codecov.io/gh/Fcmam5/jelban-js/branch/develop/graph/badge.svg?token=L0LQ6O6Q2M)](https://codecov.io/gh/Fcmam5/jelban-js)
 
 A library for filtering fake, disposable and duplicated email addresses.
+
+## Features
+
+- Filters and checks for disposable email addresses from temporary email services (like 10minutemail and Mohmal).
+- Filters and checks for aliases that lead to the same email box from providers like [Gmail](#gmail).
+- Filters for emails within an allowed domain list, or that are not in an excluded domain list.
 
 ## Supported Providers
 
