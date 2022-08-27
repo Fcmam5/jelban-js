@@ -1,1 +1,1 @@
-export * from './lib/jelban';
+export * from './lib/Jelban';
