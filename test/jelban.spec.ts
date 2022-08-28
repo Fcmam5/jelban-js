@@ -1,5 +1,5 @@
 import { Jelban } from '../src/lib/Jelban';
-import { ValidationPipe } from '../src/lib/Validator.interfaces';
+import { ValidationPipe } from '../src/lib/validators/Validator.interfaces';
 
 describe('Jelban', () => {
   describe('when created with default parameters', () => {
@@ -13,7 +13,7 @@ describe('Jelban', () => {
       const validatorPipeMock: ValidationPipe = { ruleName: 'is a valid something', isValid: jest.fn() };
 
       expect(jelban.validators).toHaveLength(0);
-      jelban.register(validatorPipeMock);
+      jelban.registerValidator(validatorPipeMock);
       expect(jelban.validators).toHaveLength(1);
     });
 
@@ -22,8 +22,8 @@ describe('Jelban', () => {
         const mockIsValid = jest.fn();
         const validatorPipeMock1: ValidationPipe = { ruleName: 'is a valid something', isValid: mockIsValid };
         const validatorPipeMock2: ValidationPipe = { ruleName: 'is a valid something else', isValid: mockIsValid };
-        jelban.register(validatorPipeMock1);
-        jelban.register(validatorPipeMock2);
+        jelban.registerValidator(validatorPipeMock1);
+        jelban.registerValidator(validatorPipeMock2);
 
         mockIsValid.mockReturnValue(true);
 
@@ -35,8 +35,8 @@ describe('Jelban', () => {
         const mockIsValid2 = jest.fn();
         const validatorPipeMock1: ValidationPipe = { ruleName: 'is a valid something', isValid: mockIsValid };
         const validatorPipeMock2: ValidationPipe = { ruleName: 'is a valid something else', isValid: mockIsValid2 };
-        jelban.register(validatorPipeMock1);
-        jelban.register(validatorPipeMock2);
+        jelban.registerValidator(validatorPipeMock1);
+        jelban.registerValidator(validatorPipeMock2);
 
         mockIsValid.mockReturnValue(true);
         mockIsValid2.mockReturnValue(false);
@@ -51,9 +51,9 @@ describe('Jelban', () => {
         const validatorPipeMock1: ValidationPipe = { ruleName: 'rule#1', isValid: mockIsValid };
         const validatorPipeMock2: ValidationPipe = { ruleName: 'rule#2', isValid: mockIsValid2 };
         const validatorPipeMock3: ValidationPipe = { ruleName: 'rule#3', isValid: mockIsValid3 };
-        jelban.register(validatorPipeMock1);
-        jelban.register(validatorPipeMock2);
-        jelban.register(validatorPipeMock3);
+        jelban.registerValidator(validatorPipeMock1);
+        jelban.registerValidator(validatorPipeMock2);
+        jelban.registerValidator(validatorPipeMock3);
 
         mockIsValid.mockReturnValue(true);
         mockIsValid2.mockReturnValue(false);
@@ -62,6 +62,13 @@ describe('Jelban', () => {
         expect(() => jelban.isValid('alice@wonderla.nd')).toThrowError(
           'Invalid email address "alice@wonderla.nd", rules: ["rule#2", "rule#3"]',
         );
+      });
+    });
+
+    describe('getNormalizedAddress', () => {
+      // TODO Mock me
+      it("should use the correct provider's route function", () => {
+        expect(jelban.getNormalizedAddress('alice+no.spam@gmail.com')).toEqual('alice@gmail.com');
       });
     });
   });

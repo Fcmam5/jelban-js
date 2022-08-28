@@ -4,8 +4,7 @@ const GMAIL_DOT_COM = 'gmail.com';
 const GOOGLEMAIL_DOT_COM = 'googlemail.com';
 const AT_GMAIL_DOT_COM = `@${GMAIL_DOT_COM}`;
 
-export default class GmailProvider implements IProvider {
-  // eslint-disable-next-line class-methods-use-this
+const GmailProvider: IProvider = {
   getNormalizedAddress(emailAddress: string): string {
     // TODO: Optimize me
     return emailAddress
@@ -15,5 +14,7 @@ export default class GmailProvider implements IProvider {
       .split(AT_GMAIL_DOT_COM)[0]
       .replace(/\./g, '')
       .concat(AT_GMAIL_DOT_COM);
-  }
-}
+  },
+};
+
+export default GmailProvider;
