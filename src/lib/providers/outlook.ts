@@ -1,6 +1,7 @@
 import { IProvider } from './provider.interface';
 
-const OutlookProvider: IProvider = {
+// eslint-disable-next-line import/prefer-default-export
+export const OutlookProvider: IProvider = {
   getNormalizedAddress(emailAddress: string): string {
     const emailAddressToReturn = emailAddress.toLocaleLowerCase().split('@');
     const domain = emailAddressToReturn[1];
@@ -17,6 +18,7 @@ const OutlookProvider: IProvider = {
   },
 };
 
+// Stryker disable StringLiteral
 const validOutlookDomains = [
   'hotmail.com',
   'outlook.com',
@@ -119,5 +121,4 @@ const validOutlookDomains = [
   'hotmail.co.uk',
   'live.co.uk',
 ];
-
-export default OutlookProvider;
+// Stryker restore StringLiteral

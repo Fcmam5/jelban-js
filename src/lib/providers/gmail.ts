@@ -4,7 +4,8 @@ const GMAIL_DOT_COM = 'gmail.com';
 const GOOGLEMAIL_DOT_COM = 'googlemail.com';
 const AT_GMAIL_DOT_COM = `@${GMAIL_DOT_COM}`;
 
-const GmailProvider: IProvider = {
+// eslint-disable-next-line import/prefer-default-export
+export const GmailProvider: IProvider = {
   getNormalizedAddress(emailAddress: string): string {
     // TODO: Optimize me
     return emailAddress
@@ -16,5 +17,3 @@ const GmailProvider: IProvider = {
       .concat(AT_GMAIL_DOT_COM);
   },
 };
-
-export default GmailProvider;

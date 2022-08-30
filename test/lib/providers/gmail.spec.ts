@@ -1,4 +1,4 @@
-import GmailProvider from '../../../src/lib/providers/gmail';
+import { GmailProvider } from '../../../src/lib/providers';
 
 describe('Providers/Gmail', () => {
   const normalizedEmailAddress = 'johndoe@gmail.com';

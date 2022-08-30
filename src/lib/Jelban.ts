@@ -1,11 +1,8 @@
 /* eslint-disable no-underscore-dangle */
-import ProviderRouter, { IProviderRouter } from './providers/router';
 import { ValidationPipe } from './validators/Validator.interfaces';
 
 export class Jelban {
   private _validators: ValidationPipe[] = [];
-
-  providerRouter: IProviderRouter = ProviderRouter;
 
   // constructor(config: JelbanConfig) {}
 
@@ -26,10 +23,6 @@ export class Jelban {
     }
 
     return false;
-  }
-
-  getNormalizedAddress(emailAddress: string): string {
-    return this.providerRouter.route(emailAddress).getNormalizedAddress(emailAddress);
   }
 
   get validators() {

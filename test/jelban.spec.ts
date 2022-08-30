@@ -64,12 +64,5 @@ describe('Jelban', () => {
         );
       });
     });
-
-    describe('getNormalizedAddress', () => {
-      // TODO Mock me
-      it("should use the correct provider's route function", () => {
-        expect(jelban.getNormalizedAddress('alice+no.spam@gmail.com')).toEqual('alice@gmail.com');
-      });
-    });
   });
 });

@@ -1,8 +1,8 @@
-import GmailProvider from './gmail';
-import OutlookProvider from './outlook';
+import { GmailProvider } from './gmail';
+import { OutlookProvider } from './outlook';
 import { IProvider } from './provider.interface';
 
-const ProviderRouter: IProviderRouter = {
+export const ProviderRouter: IProviderRouter = {
   route: (emailAddress: string) => {
     const domain = emailAddress.toLocaleLowerCase().substring(emailAddress.lastIndexOf('@') + 1);
 
@@ -26,4 +26,3 @@ const ProviderRouter: IProviderRouter = {
 export interface IProviderRouter {
   route(emailAddress: string): IProvider;
 }
-export default ProviderRouter;

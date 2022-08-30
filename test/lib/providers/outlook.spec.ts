@@ -1,4 +1,4 @@
-import Outlook from '../../../src/lib/providers/outlook';
+import { OutlookProvider } from '../../../src/lib/providers';
 
 describe('Providers/Outlook', () => {
   const normalizedEmailAddress = 'john.doe@hotmail.com';
@@ -6,7 +6,8 @@ describe('Providers/Outlook', () => {
   beforeEach(() => {});
 
   it('should not affect normalized email addresses', () => {
-    expect(Outlook.getNormalizedAddress(normalizedEmailAddress)).toBe(normalizedEmailAddress);
+    const rs = OutlookProvider.getNormalizedAddress(normalizedEmailAddress);
+    expect(rs).toBe(normalizedEmailAddress);
   });
 
   describe('for every non-normalized email address', () => {
@@ -14,7 +15,7 @@ describe('Providers/Outlook', () => {
       it.each(['John.Doe@hotmail.com', 'John.doe@hotmail.com', 'john.Doe@hotmail.com'])(
         `"%s" => ${normalizedEmailAddress}`,
         (emailAddress: string) => {
-          expect(Outlook.getNormalizedAddress(emailAddress)).toBe(normalizedEmailAddress);
+          expect(OutlookProvider.getNormalizedAddress(emailAddress)).toBe(normalizedEmailAddress);
         },
       );
     });
@@ -27,12 +28,12 @@ describe('Providers/Outlook', () => {
         ['John.doe+important@windowslive.com', 'john.doe@windowslive.com'],
         ['John.doe+important@outlook.com', 'john.doe@outlook.com'],
       ])('%s => %s', (emailAddress: string, expected: string) => {
-        expect(Outlook.getNormalizedAddress(emailAddress)).toBe(expected);
+        expect(OutlookProvider.getNormalizedAddress(emailAddress)).toBe(expected);
       });
     });
 
     it('should throw if the given address has not a valid outlook domain', () => {
-      expect(() => Outlook.getNormalizedAddress('alice@hotmail.dz')).toThrow(
+      expect(() => OutlookProvider.getNormalizedAddress('alice@hotmail.dz')).toThrow(
         '"hotmail.dz" is not a valid Microsoft Outlook domain!',
       );
     });
