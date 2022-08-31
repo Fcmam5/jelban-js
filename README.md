@@ -30,6 +30,12 @@ Jelban's Gmail provider normalizes Gmail addresses to lowercase, non dotted and 
 
 3. Dots don't matter in Gmail addressees ([source](https://support.google.com/mail/answer/7436150?hl=en)), so `john.smith@gmail.com`, and `jo.hn.sm.ith@gmail.com`, and `j.o.h.n.s.m.i.t.h@gmail.com` and `johnnsmith@gmail.com` are all similar.
 
+## Outlook/Hotmail
+
+Similarly to the previous provider, Jelban's Outlook provider normalizers Outlook (aka. Hotmail) email addresses as it has also the option to create aliases ([src](https://www.cnet.com/tech/tech-industry/hotmail-launches-accounts-you-can-throw-away/)), example:
+
+> Emails to *jane.doe<strong>+school</strong>@hotmail.fr*  and *jane.doe<strong>+work</strong>@hotmail.fr* will land at `jane.doe@hotmail.fr`'s mailbox
+
 ## Security and privacy concerns
 
 ### Issue #1
