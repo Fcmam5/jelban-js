@@ -1,8 +1,8 @@
 {
-  "name": "jelban",
-  "version": "1.0.0",
+  "name": "jelban.js",
+  "version": "0.0.1",
   "description": "Another email addresses filter; filters out disposable and addresses' alias",
-  "main": "index.js",
+  "main": "dist/src/index.js",
   "scripts": {
     "build": "tsc --build",
     "clean": "tsc --build --clean",
@@ -12,8 +12,12 @@
     "lint:fix": "npm run lint -- --fix",
     "format": "prettier --write .",
     "format:check": "prettier --check src/**/*.ts",
-    "mutate": "stryker run"
+    "mutate": "stryker run",
+    "doc": "typedoc src/index.ts"
   },
+  "files": [
+    "dist/src/*"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Fcmam5/jelbann-js.git"

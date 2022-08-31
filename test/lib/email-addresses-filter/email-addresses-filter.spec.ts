@@ -18,6 +18,11 @@ describe('Email addresses filter', () => {
     it('should return false if the provided email address in the excluded domains list', () => {
       expect(filter.isValid('alice@wonderla.nd')).toBeFalsy();
     });
+
+    it('should return true if exclude domain list is empty', () => {
+      const filter2 = new EmailAddressesFilter({ disposableEmailDomains: [''] });
+      expect(filter2.isValid('hmida@domain.dz')).toBeTruthy();
+    });
   });
 
   describe('DisposableEmailAddress', () => {

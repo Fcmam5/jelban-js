@@ -1,3 +1,4 @@
+// Stryker disable StringLiteral
 const domains = [
   // Mohmal.com
   'boxomail.live',
@@ -11,5 +12,6 @@ const domains = [
   // 10minutemail
   'nvhrw.com',
 ];
+// Stryker restore StringLiteral
 
 export default domains;
