@@ -1,10 +1,31 @@
 /* eslint-disable no-underscore-dangle */
+import IsExcludedDomainValidator from './validators/is-excluded-domain';
+import temporaryEmailDomains from './validators/temporary-email-domains';
 import { ValidationPipe } from './validators/Validator.interfaces';
 
 export class Jelban {
   private _validators: ValidationPipe[] = [];
 
-  // constructor(config: JelbanConfig) {}
+  constructor(config?: JelbanConfig) {
+    this.init({
+      noGmailAliases: config?.noGmailAliases || true,
+      noOutlookAliases: config?.noOutlookAliases || true,
+      noDisposableEmailAddresses: config?.noDisposableEmailAddresses || true,
+      excludeDomains: config?.excludeDomains || [],
+      allowDomains: config?.allowDomains || [],
+    });
+  }
+
+  private init(config: JelbanConfig) {
+    if (config.noDisposableEmailAddresses) {
+      this.registerValidator(
+        new IsExcludedDomainValidator({
+          disposableEmailDomains: temporaryEmailDomains,
+          excludedDomains: config.excludeDomains,
+        }),
+      );
+    }
+  }
 
   registerValidator(validator: ValidationPipe) {
     this._validators.push(validator);
@@ -32,9 +53,9 @@ export class Jelban {
 }
 
 export interface JelbanConfig {
-  noGmailAliases: true;
-  noOutlookAliases: true;
-  noDisposableEmailAddresses: true;
-  excludeDomains: [];
-  allowDomains: [];
+  noGmailAliases: boolean;
+  noOutlookAliases: boolean;
+  noDisposableEmailAddresses: boolean;
+  excludeDomains: string[];
+  allowDomains: string[];
 }

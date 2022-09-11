@@ -28,11 +28,21 @@ describe('Defaults', () => {
     });
 
     describe('Temporary email addresses', () => {
-      it.each([['kavi@boxomail.live', 'Mohmal']])(
-        'should throw the email address is a temporary email from "$_service" ($emailAddress)',
+      it.each([['Mohmal', 'kavi@boxomail.live']])(
+        'should throw if the email address is a temporary email from "%s" (%s)',
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        (emailAddress, _service) => {
-          expect(jelban.isValid(emailAddress)).toBe(false);
+        (_service, emailAddress) => {
+          expect(() => jelban.isValid(emailAddress)).toThrow(
+            `Invalid email address "${emailAddress}", rules: ["IsExcludedDomainValidator"]`,
+          );
+        },
+      );
+
+      it.each([['Mohmal', 'kavi@boxomail.live']])(
+        'should return false if the email address is a temporary email from "%s" (%s)',
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        (_service, emailAddress) => {
+          expect(jelban.isValid(emailAddress, false)).toBeFalsy();
         },
       );
     });

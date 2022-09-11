@@ -1,4 +1,4 @@
-import domains from '../../../../src/lib/email-addresses-filter/list';
+import domains from '../../../../src/lib/validators/temporary-email-domains';
 
 describe('Disposable email domains list', () => {
   it('should not have duplicates', () => {
