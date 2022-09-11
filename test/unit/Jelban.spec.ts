@@ -1,5 +1,5 @@
-import { Jelban } from '../src/lib/Jelban';
-import { ValidationPipe } from '../src/lib/validators/Validator.interfaces';
+import { Jelban } from '../../src/lib/Jelban';
+import { ValidationPipe } from '../../src/lib/validators/Validator.interfaces';
 
 describe('Jelban', () => {
   describe('when created with default parameters', () => {
@@ -9,12 +9,23 @@ describe('Jelban', () => {
       jelban = new Jelban();
     });
 
-    it('should add new pipes to the validator', () => {
-      const validatorPipeMock: ValidationPipe = { ruleName: 'is a valid something', isValid: jest.fn() };
+    describe('registerValidator', () => {
+      it('should add new pipes to the validator', () => {
+        const validatorPipeMock: ValidationPipe = { ruleName: 'is a valid something', isValid: jest.fn() };
 
-      expect(jelban.validators).toHaveLength(0);
-      jelban.registerValidator(validatorPipeMock);
-      expect(jelban.validators).toHaveLength(1);
+        expect(jelban.validators).toHaveLength(0);
+        jelban.registerValidator(validatorPipeMock);
+        expect(jelban.validators).toHaveLength(1);
+      });
+
+      it('should return the validator', () => {
+        const validatorPipeMock: ValidationPipe = { ruleName: 'is a valid something', isValid: jest.fn() };
+        const validatorPipeMock2: ValidationPipe = { ruleName: 'is a valid something', isValid: jest.fn() };
+
+        expect(jelban.validators).toHaveLength(0);
+        const rs = jelban.registerValidator(validatorPipeMock).registerValidator(validatorPipeMock2);
+        expect(rs).toEqual(jelban);
+      });
     });
 
     describe('isValid', () => {

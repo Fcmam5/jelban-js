@@ -8,6 +8,7 @@ export class Jelban {
 
   registerValidator(validator: ValidationPipe) {
     this._validators.push(validator);
+    return this;
   }
 
   isValid(emailAddress: string, throwOnError = true): boolean {
@@ -32,6 +33,7 @@ export class Jelban {
 
 export interface JelbanConfig {
   noGmailAliases: true;
+  noOutlookAliases: true;
   noDisposableEmailAddresses: true;
   excludeDomains: [];
   allowDomains: [];

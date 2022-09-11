@@ -32,6 +32,8 @@ jobs:
       - run: npm ci
       - run: npm run build --if-present
       - run: npm test
+      - run: npm run test:integration
+        continue-on-error: true # TODO
       - run: npm run lint
       - run: npm run mutate
       - uses: codecov/codecov-action@v3

@@ -1,4 +1,4 @@
-import EmailAddressesFilter from '../../../src/lib/email-addresses-filter/email-addresses-filter';
+import EmailAddressesFilter from '../../../../src/lib/email-addresses-filter/email-addresses-filter';
 
 describe('Email addresses filter', () => {
   describe('Excluded domains', () => {

@@ -7,6 +7,7 @@
     "build": "tsc --build",
     "clean": "tsc --build --clean",
     "test": "jest",
+    "test:integration": "jest --testMatch **/test/integration/**/*.integration.spec.ts",
     "test:watch": "npm run test -- --watch",
     "lint": "eslint . --ext .ts",
     "lint:fix": "npm run lint -- --fix",

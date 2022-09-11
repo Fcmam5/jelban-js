@@ -1,4 +1,4 @@
-import { OutlookProvider } from '../../../src/lib/providers';
+import { OutlookProvider } from '../../../../src/lib/providers';
 
 describe('Providers/Outlook', () => {
   const normalizedEmailAddress = 'john.doe@hotmail.com';
