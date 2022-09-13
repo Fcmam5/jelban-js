@@ -13,16 +13,16 @@ describe('Jelban', () => {
       it('should add new pipes to the validator', () => {
         const validatorPipeMock: ValidationPipe = { ruleName: 'is a valid something', isValid: jest.fn() };
 
-        expect(jelban.validators).toHaveLength(0);
-        jelban.registerValidator(validatorPipeMock);
         expect(jelban.validators).toHaveLength(1);
+        jelban.registerValidator(validatorPipeMock);
+        expect(jelban.validators).toHaveLength(2);
       });
 
       it('should return the validator', () => {
         const validatorPipeMock: ValidationPipe = { ruleName: 'is a valid something', isValid: jest.fn() };
         const validatorPipeMock2: ValidationPipe = { ruleName: 'is a valid something', isValid: jest.fn() };
 
-        expect(jelban.validators).toHaveLength(0);
+        expect(jelban.validators).toHaveLength(1);
         const rs = jelban.registerValidator(validatorPipeMock).registerValidator(validatorPipeMock2);
         expect(rs).toEqual(jelban);
       });
