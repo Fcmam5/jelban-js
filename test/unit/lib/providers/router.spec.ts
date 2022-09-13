@@ -1,4 +1,4 @@
-import { ProviderRouter, GmailProvider, OutlookProvider } from '../../../src/lib/providers';
+import { ProviderRouter, GmailProvider, OutlookProvider } from '../../../../src/lib/providers';
 
 describe('Route to provider', () => {
   describe('GmailProvider', () => {

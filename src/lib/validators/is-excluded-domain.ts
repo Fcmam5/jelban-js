@@ -1,11 +1,18 @@
-export default class EmailAddressesFilter {
+import { ValidationPipe } from './Validator.interfaces';
+
+export default class IsExcludedDomainValidator implements ValidationPipe {
+  ruleName = 'IsExcludedDomainValidator';
+
   disposableEmailDomains: string[];
 
   excludedDomains: string[];
 
+  private excludedDomainsMerged: string[];
+
   constructor(params: IEmailAddressesFilter) {
     this.disposableEmailDomains = params.disposableEmailDomains;
     this.excludedDomains = params.excludedDomains || [];
+    this.excludedDomainsMerged = [...this.excludedDomains, ...this.disposableEmailDomains];
   }
 
   isDisposable = (addr: string) => {
@@ -18,7 +25,7 @@ export default class EmailAddressesFilter {
     return this.excludedDomains.includes(domain);
   };
 
-  isValid = (addr: string) => !(this.isInExcludedDomain(addr) || this.isDisposable(addr));
+  isValid = (addr: string) => !this.excludedDomainsMerged.includes(this.getDomain(addr));
 
   // eslint-disable-next-line class-methods-use-this
   private getDomain(emailAddress: string) {

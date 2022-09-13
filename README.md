@@ -4,6 +4,8 @@
 
 A library for filtering fake, disposable and duplicated email addresses.
 
+TLDR; See [Usage](#usage)
+
 ## Features
 
 - Filters and checks for disposable email addresses from temporary email services (like 10minutemail and Mohmal).
@@ -47,6 +49,22 @@ Also, users may choose to use the aliases when registering to your applications,
 #### Possible solution
 
 Store email addresses in both formats, the user input and your normalized format, and when checking if an address is used you can rely on the normalized one, this may cause another issue if a user wants to change from their address `johnsmith@gmail.com` to `john.smith@gmail.com` in their profile settings, then you know best what to do :)
+
+## Usage
+
+```typescript
+// Instantiate the library
+const jelban = new Jelban();
+
+console.log(jelban.isValid('something@gmail.com')); // prints "true"
+
+console.log(jelban.isValid('kavi@boxomail.live')); // throws: "Invalid email address "kavi@boxomail.live", rules: ["IsExcludedDomainValidator"]" because "@boxmail.live" is a temporary domain from mohamal.com service
+
+
+// If you don't want to throw on failed validations and return "false" instead:
+console.log(jelban.isValid('kavi@boxomail.live', false)); // prints "false"
+```
+
 
 ## Development
 
