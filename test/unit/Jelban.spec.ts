@@ -1,4 +1,5 @@
 import { Jelban } from '../../src/lib/Jelban';
+import IsAllowedDomainValidator from '../../src/lib/validators/is-allowed-domain';
 import { ValidationPipe } from '../../src/lib/validators/Validator.interfaces';
 
 describe('Jelban', () => {
@@ -74,6 +75,20 @@ describe('Jelban', () => {
           'Invalid email address "alice@wonderla.nd", rules: ["rule#2", "rule#3"]',
         );
       });
+    });
+  });
+
+  describe('when created with allowedDomains', () => {
+    const allowedDomains = ['mhaj.eb', 'faf.dz'];
+
+    let jelban: Jelban;
+
+    beforeEach(() => {
+      jelban = new Jelban({ allowDomains: allowedDomains });
+    });
+
+    it('should register AllowedDomains', () => {
+      expect(jelban.validators).toContainEqual(new IsAllowedDomainValidator(allowedDomains));
     });
   });
 });

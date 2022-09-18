@@ -22,11 +22,11 @@ Jelban's Gmail provider normalizes Gmail addresses to lowercase, non dotted and 
 
 1. Gmail offers an [aliases feature](https://support.google.com/mail/answer/22370?hl=en#zippy=%2Cfilter-using-your-gmail-alias) where you can create multiple aliases for your address, example:
 
-    > For example, messages sent to the following aliases will all go to janedoe@gmail.com:
-    >
-    > janedoe<strong>+school</strong>@gmail.com
-    > janedoe<strong>+notes</strong>@gmail.com
-    > janedoe<strong>+important.emails</strong>@gmail.com
+   > For example, messages sent to the following aliases will all go to janedoe@gmail.com:
+   >
+   > janedoe<strong>+school</strong>@gmail.com
+   > janedoe<strong>+notes</strong>@gmail.com
+   > janedoe<strong>+important.emails</strong>@gmail.com
 
 2. Also, `@gmail.com` addresses, can be reached by using `@googlemail.com`, source [http://techcrunch.com/2010/05/03/gmail-uk/](http://techcrunch.com/2010/05/03/gmail-uk/). So `janedoe@gmail.com` is exactly equivalent to `janedoe@googlemail.com`.
 
@@ -36,7 +36,7 @@ Jelban's Gmail provider normalizes Gmail addresses to lowercase, non dotted and 
 
 Similarly to the previous provider, Jelban's Outlook provider normalizers Outlook (aka. Hotmail) email addresses as it has also the option to create aliases ([src](https://www.cnet.com/tech/tech-industry/hotmail-launches-accounts-you-can-throw-away/)), example:
 
-> Emails to *jane.doe<strong>+school</strong>@hotmail.fr*  and *jane.doe<strong>+work</strong>@hotmail.fr* will land at `jane.doe@hotmail.fr`'s mailbox
+> Emails to _jane.doe<strong>+school</strong>@hotmail.fr_ and _jane.doe<strong>+work</strong>@hotmail.fr_ will land at `jane.doe@hotmail.fr`'s mailbox
 
 ## Security and privacy concerns
 
@@ -60,11 +60,19 @@ console.log(jelban.isValid('something@gmail.com')); // prints "true"
 
 console.log(jelban.isValid('kavi@boxomail.live')); // throws: "Invalid email address "kavi@boxomail.live", rules: ["IsExcludedDomainValidator"]" because "@boxmail.live" is a temporary domain from mohamal.com service
 
-
 // If you don't want to throw on failed validations and return "false" instead:
 console.log(jelban.isValid('kavi@boxomail.live', false)); // prints "false"
 ```
 
+### Parameters
+
+| Param                        | Description                                                                                                | Required | Default |
+| ---------------------------- | ---------------------------------------------------------------------------------------------------------- | -------- | ------- |
+| `noGmailAliases`             | When set to `true`, this will exclude Gmail aliases as described in [providers/gmail](#gmail)              | `false`  | `true`  |
+| `noOutlookAliases`           | When set to `true`, this will exclude Outlook aliases as described in [providers/Outlook](#outlookhotmail) | `false`  | `true`  |
+| `noDisposableEmailAddresses` | When set to `true`, this will exclude temporary email addresses from services like `mohmal.com`            | `false`  | `true`  |
+| `excludeDomains`             | A list of email address domains that you may want to exclude                                               | `false`  | `[]`    |
+| `allowDomains`               | A list of restricted domains you want to include, default is `[]` which will skip this validation rule     | `false`  | `[]`    |
 
 ## Development
 

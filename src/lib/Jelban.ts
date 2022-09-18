@@ -1,4 +1,4 @@
-/* eslint-disable no-underscore-dangle */
+import IsAllowedDomainValidator from './validators/is-allowed-domain';
 import IsExcludedDomainValidator from './validators/is-excluded-domain';
 import temporaryEmailDomains from './validators/temporary-email-domains';
 import { ValidationPipe } from './validators/Validator.interfaces';
@@ -6,17 +6,21 @@ import { ValidationPipe } from './validators/Validator.interfaces';
 export class Jelban {
   private _validators: ValidationPipe[] = [];
 
-  constructor(config?: JelbanConfig) {
+  constructor(config: JelbanConfig = {}) {
     this.init({
-      noGmailAliases: config?.noGmailAliases || true,
-      noOutlookAliases: config?.noOutlookAliases || true,
-      noDisposableEmailAddresses: config?.noDisposableEmailAddresses || true,
-      excludeDomains: config?.excludeDomains || [],
-      allowDomains: config?.allowDomains || [],
+      noGmailAliases: config.noGmailAliases || true,
+      noOutlookAliases: config.noOutlookAliases || true,
+      noDisposableEmailAddresses: config.noDisposableEmailAddresses || true,
+      excludeDomains: config.excludeDomains || [],
+      allowDomains: config.allowDomains || [],
     });
   }
 
   private init(config: JelbanConfig) {
+    if (config.allowDomains && config.allowDomains.length) {
+      this.registerValidator(new IsAllowedDomainValidator(config.allowDomains));
+    }
+
     if (config.noDisposableEmailAddresses) {
       this.registerValidator(
         new IsExcludedDomainValidator({
@@ -53,9 +57,9 @@ export class Jelban {
 }
 
 export interface JelbanConfig {
-  noGmailAliases: boolean;
-  noOutlookAliases: boolean;
-  noDisposableEmailAddresses: boolean;
-  excludeDomains: string[];
-  allowDomains: string[];
+  noGmailAliases?: boolean;
+  noOutlookAliases?: boolean;
+  noDisposableEmailAddresses?: boolean;
+  excludeDomains?: string[];
+  allowDomains?: string[];
 }
