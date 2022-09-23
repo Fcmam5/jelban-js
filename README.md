@@ -1,10 +1,10 @@
 # jelBAN.js
 
-[![Mutation testing badge](https://img.shields.io/endpoint?style=flat&url=https%3A%2F%2Fbadge-api.stryker-mutator.io%2Fgithub.com%2FFcmam5%2Fjelban-js%2Fdevelop)](https://dashboard.stryker-mutator.io/reports/github.com/Fcmam5/jelban-js/develop) ![Known Vulnerabilities](https://snyk.io/test/github/Fcmam5/jelban-js/badge.svg) [![codecov](https://codecov.io/gh/Fcmam5/jelban-js/branch/develop/graph/badge.svg?token=L0LQ6O6Q2M)](https://codecov.io/gh/Fcmam5/jelban-js)
+[![Mutation testing badge](https://img.shields.io/endpoint?style=flat&url=https%3A%2F%2Fbadge-api.stryker-mutator.io%2Fgithub.com%2FFcmam5%2Fjelban-js%2Fdevelop)](https://dashboard.stryker-mutator.io/reports/github.com/Fcmam5/jelban-js/develop) ![Known Vulnerabilities](https://snyk.io/test/github/Fcmam5/jelban-js/badge.svg) [![codecov](https://codecov.io/gh/Fcmam5/jelban-js/branch/develop/graph/badge.svg?token=L0LQ6O6Q2M)](https://codecov.io/gh/Fcmam5/jelban-js) [![npm](https://img.shields.io/npm/v/jelban.js)](https://www.npmjs.com/package/jelban.js)
 
 A library for filtering fake, disposable and duplicated email addresses.
 
-TLDR; See [Usage](#usage)
+TLDR; See [Usage](#usage) And [Wiki](https://github.com/Fcmam5/jelban-js/wiki).
 
 ## Features
 
@@ -52,7 +52,14 @@ Store email addresses in both formats, the user input and your normalized format
 
 ## Usage
 
+```
+npm i jelban.js
+```
+
 ```typescript
+import { Jelban } from 'jelban.js';
+
+
 // Instantiate the library
 const jelban = new Jelban();
 
