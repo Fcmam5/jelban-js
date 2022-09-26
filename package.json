@@ -2,7 +2,8 @@
   "name": "jelban.js",
   "version": "0.0.2",
   "description": "Another email addresses filter; filters out disposable and addresses' alias",
-  "main": "dist/src/index.js",
+  "main": "dist/src/index",
+  "typings": "dist/src/index.d.ts",
   "scripts": {
     "build": "tsc --build",
     "clean": "tsc --build --clean",
