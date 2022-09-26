@@ -1,6 +1,6 @@
 {
   "name": "jelban.js",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Another email addresses filter; filters out disposable and addresses' alias",
   "main": "dist/src/index",
   "typings": "dist/src/index.d.ts",
