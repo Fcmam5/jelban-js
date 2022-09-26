@@ -10,7 +10,7 @@
     "test": "jest",
     "test:integration": "jest --testMatch **/test/integration/**/*.integration.spec.ts ----coverageDirectory coverage/integration",
     "test:watch": "npm run test -- --watch",
-    "lint": "eslint . --ext .ts",
+    "lint": "eslint src/** --ext .ts",
     "lint:fix": "npm run lint -- --fix",
     "format": "prettier --write .",
     "format:check": "prettier --check src/**/*.ts",
