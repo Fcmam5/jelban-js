@@ -1,4 +1,3 @@
-<!-- omit in toc -->
 # Contributing to Jelban-js
 
 First off, thanks for taking the time to contribute! ❤️
