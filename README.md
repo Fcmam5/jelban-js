@@ -8,7 +8,7 @@ TLDR; See [Usage](#usage) And [Wiki](https://github.com/Fcmam5/jelban-js/wiki).
 
 ## Features
 
-- Filters and checks for disposable email addresses from temporary email services (like 10minutemail and Mohmal).
+- Filters and checks for disposable email addresses from temporary email services (like 10minutemail and Mohmal), see the full list of domains at [`lib/validators/temporary-email-domains`](./src//lib/validators/temporary-email-domains.ts).
 - Filters and checks for aliases that lead to the same email box from providers like [Gmail](#gmail).
 - Filters for emails within an allowed domain list, or that are not in an excluded domain list.
 
