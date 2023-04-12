@@ -1322,6 +1322,7 @@ const temporaryEmailDomains = [
   'temporaryemail.us',
   'temporaryforwarding.com',
   'temporaryinbox.com',
+  'temporaremail.com',
   'tempsky.com',
   'tempthe.net',
   'tempymail.com',
