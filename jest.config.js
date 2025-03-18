@@ -4,7 +4,5 @@ module.exports = {
   coverageProvider: 'v8',
   testEnvironment: 'node',
   collectCoverage: true,
-  testMatch: [
-    '**/test/unit/**/*.spec.ts',
-  ],
+  testMatch: ['**/test/unit/**/*.spec.ts'],
 };

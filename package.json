@@ -10,12 +10,12 @@
     "test": "jest",
     "test:integration": "jest --testMatch **/test/integration/**/*.integration.spec.ts ----coverageDirectory coverage/integration",
     "test:watch": "npm run test -- --watch",
-    "lint": "eslint src/** --ext .ts",
+    "lint": "eslint .",
     "lint:fix": "npm run lint -- --fix",
     "format": "prettier --write .",
     "format:check": "prettier --check src/**/*.ts",
     "mutate": "stryker run",
-    "doc": "typedoc src/index.ts"
+    "doc-gen": "typedoc src/index.ts"
   },
   "files": [
     "dist/src/*"
@@ -36,21 +36,21 @@
   },
   "homepage": "https://github.com/Fcmam5/jelbann-js#readme",
   "devDependencies": {
-    "@stryker-mutator/core": "^6.4.1",
-    "@stryker-mutator/jest-runner": "^6.4.1",
-    "@stryker-mutator/typescript-checker": "^6.4.1",
-    "@types/jest": "^29.4.0",
-    "@typescript-eslint/eslint-plugin": "^5.52.0",
-    "@typescript-eslint/parser": "^5.52.0",
-    "eslint": "^8.34.0",
-    "eslint-config-airbnb-base": "^15.0.0",
-    "eslint-config-airbnb-typescript": "^17.0.0",
-    "eslint-plugin-import": "^2.27.5",
-    "jest": "^29.4.3",
-    "prettier": "^2.8.4",
-    "prettier-eslint": "^15.0.1",
-    "ts-jest": "^29.0.5",
-    "ts-node": "^10.8.1",
-    "typescript": "^4.9.5"
+    "@eslint/js": "^9.22.0",
+    "@stryker-mutator/core": "^8.7.1",
+    "@stryker-mutator/jest-runner": "^8.7.1",
+    "@stryker-mutator/typescript-checker": "^8.7.1",
+    "@types/jest": "^29.5.14",
+    "eslint": "^9.22.0",
+    "eslint-config-prettier": "^10.1.1",
+    "eslint-plugin-prettier": "^5.2.3",
+    "globals": "^16.0.0",
+    "jest": "^29.7.0",
+    "prettier": "^3.5.3",
+    "ts-jest": "^29.2.6",
+    "ts-node": "^10.9.2",
+    "typedoc": "^0.28.0",
+    "typescript": "^5.8.2",
+    "typescript-eslint": "^8.26.1"
   }
 }

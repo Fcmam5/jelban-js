@@ -11,23 +11,26 @@ on:
       - main
       - develop
 
+permissions:
+  id-token: write
+  pages: write
+
 jobs:
   buildAndTest:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     env:
       STRYKER_DASHBOARD_API_KEY: ${{ secrets.STRYKER_DASHBOARD_API_KEY }}
     name: Build and test
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [16.x] # [12.x, 14.x]
-
     steps:
-      - uses: actions/checkout@v3
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - name: Use Node.js 
+        uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version-file: '.nvmrc'
           cache: 'npm'
       - run: npm ci
       - run: npm run build --if-present
@@ -36,6 +39,25 @@ jobs:
         continue-on-error: true # TODO
       - run: npm run lint
       - run: npm run mutate
-      - uses: codecov/codecov-action@v3
+
+      - uses: codecov/codecov-action@v5
+        if: github.ref == 'refs/heads/develop' && github.event_name == 'push'
         with:
-          token: ${{ secrets.CODECOV_TOKEN }} 
+          token: ${{ secrets.CODECOV_TOKEN }}
+
+      - name: Publish docs
+        if: github.ref == 'refs/heads/develop' && github.event_name == 'push'
+        run: npm run doc-gen
+
+      - id: upload-documentation
+        name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs/
+          name: typedocs
+
+      - id: deployment
+        name: Deploy documentation to GitHub Pages
+        uses: actions/deploy-pages@v4
+        with:
+          artifact_name: typedocs

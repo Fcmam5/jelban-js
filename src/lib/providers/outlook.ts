@@ -1,12 +1,10 @@
 import { IProvider } from './provider.interface';
 
-// eslint-disable-next-line import/prefer-default-export
 export const OutlookProvider: IProvider = {
   getNormalizedAddress(emailAddress: string): string {
     const emailAddressToReturn = emailAddress.toLocaleLowerCase().split('@');
     const domain = emailAddressToReturn[1];
 
-    // eslint-disable-next-line @typescript-eslint/no-use-before-define
     if (!validOutlookDomains.find((dm) => dm === domain)) {
       throw new Error(`"${domain}" is not a valid Microsoft Outlook domain!`);
     }

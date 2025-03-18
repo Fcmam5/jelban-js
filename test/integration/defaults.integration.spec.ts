@@ -30,7 +30,6 @@ describe('Defaults', () => {
     describe('Temporary email addresses', () => {
       it.each([['Mohmal', 'kavi@boxomail.live']])(
         'should throw if the email address is a temporary email from "%s" (%s)',
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         (_service, emailAddress) => {
           expect(() => jelban.isValid(emailAddress)).toThrow(
             `Invalid email address "${emailAddress}", rules: ["IsExcludedDomainValidator"]`,
@@ -40,7 +39,6 @@ describe('Defaults', () => {
 
       it.each([['Mohmal', 'kavi@boxomail.live']])(
         'should return false if the email address is a temporary email from "%s" (%s)',
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         (_service, emailAddress) => {
           expect(jelban.isValid(emailAddress, false)).toBeFalsy();
         },

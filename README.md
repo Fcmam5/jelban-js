@@ -59,7 +59,6 @@ npm i jelban.js
 ```typescript
 import { Jelban } from 'jelban.js';
 
-
 // Instantiate the library
 const jelban = new Jelban();
 
