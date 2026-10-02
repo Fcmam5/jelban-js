@@ -91,4 +91,21 @@ describe('Jelban', () => {
       expect(jelban.validators).toContainEqual(new IsAllowedDomainValidator(allowedDomains));
     });
   });
+
+  describe('config toggles', () => {
+    it('should not register the disposable validator when noDisposableEmailAddresses is false', () => {
+      expect(new Jelban({ noDisposableEmailAddresses: false }).validators).toHaveLength(0);
+    });
+
+    it('should still apply excludeDomains when noDisposableEmailAddresses is false', () => {
+      const jelban = new Jelban({ noDisposableEmailAddresses: false, excludeDomains: ['bad.com'] });
+
+      expect(jelban.isValid('a@bad.com', false)).toBe(false);
+      expect(jelban.isValid('a@mohmal.com', false)).toBe(true);
+    });
+
+    it('should block disposable domains by default', () => {
+      expect(new Jelban().isValid('a@mohmal.com', false)).toBe(false);
+    });
+  });
 });
