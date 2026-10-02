@@ -78,7 +78,13 @@ console.log(jelban.isValid('kavi@boxomail.live', false)); // prints "false"
 | `excludeDomains`             | A list of email address domains to exclude (case-insensitive, subdomains included)                     | `false`  | `[]`    |
 | `allowDomains`               | A list of restricted domains you want to include, default is `[]` which will skip this validation rule | `false`  | `[]`    |
 
-### Disposable domains list
+### Disposable domains
+
+```typescript
+import { isDisposable } from 'jelban.js';
+
+isDisposable('kavi@boxomail.live'); // true
+```
 
 The raw list is available on its own:
 

@@ -8,8 +8,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.0] - 2026-10-02
+
 ### Added
 
+- `isDisposable()` checks an address against the disposable domains list
 - `normalize()` returns the canonical form of an address (Gmail, Outlook), for deduplication
 - `ValidationPipe` type export
 - TSDoc on the public API
