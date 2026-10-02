@@ -13,6 +13,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `normalize()` returns the canonical form of an address (Gmail, Outlook), for deduplication
 - `ValidationPipe` type export
 - TSDoc on the public API
+- ESM and CJS builds with an `exports` map, and `sideEffects: false` for tree shaking
+- `jelban.js/domains` entry exporting `temporaryEmailDomains`
 
 ### Fixed
 
@@ -29,6 +31,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Domain lookups use a `Set` instead of scanning an array
 - Plus-tag stripping no longer uses regexes
+- Build uses `tsdown` instead of `tsc`; entry files are now `dist/index.cjs` and `dist/index.mjs`
 
 ### Removed
 

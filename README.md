@@ -78,6 +78,14 @@ console.log(jelban.isValid('kavi@boxomail.live', false)); // prints "false"
 | `excludeDomains`             | A list of email address domains to exclude (case-insensitive, subdomains included)                     | `false`  | `[]`    |
 | `allowDomains`               | A list of restricted domains you want to include, default is `[]` which will skip this validation rule | `false`  | `[]`    |
 
+### Disposable domains list
+
+The raw list is available on its own:
+
+```typescript
+import { temporaryEmailDomains } from 'jelban.js/domains';
+```
+
 ### Normalizing addresses
 
 `normalize()` returns the canonical form of an address, useful for detecting duplicate sign-ups. See [Gmail](#gmail) and [Outlook/Hotmail](#outlookhotmail) for the rules. Other domains are only trimmed and lowercased.
