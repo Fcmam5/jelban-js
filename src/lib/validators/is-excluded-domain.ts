@@ -1,4 +1,4 @@
-import { getDomain } from '../helpers/email-addresses';
+import { getDomain, matchesDomain } from '../helpers/email-addresses';
 import { ValidationPipe } from './Validator.interfaces';
 
 export default class IsExcludedDomainValidator implements ValidationPipe {
@@ -17,16 +17,14 @@ export default class IsExcludedDomainValidator implements ValidationPipe {
   }
 
   isDisposable = (addr: string) => {
-    const domain = getDomain(addr);
-    return this.disposableEmailDomains.includes(domain);
+    return matchesDomain(getDomain(addr), this.disposableEmailDomains);
   };
 
   isInExcludedDomain = (addr: string) => {
-    const domain = getDomain(addr);
-    return this.excludedDomains.includes(domain);
+    return matchesDomain(getDomain(addr), this.excludedDomains);
   };
 
-  isValid = (addr: string) => !this.excludedDomainsMerged.includes(getDomain(addr));
+  isValid = (addr: string) => !matchesDomain(getDomain(addr), this.excludedDomainsMerged);
 }
 
 export interface IEmailAddressesFilter {
