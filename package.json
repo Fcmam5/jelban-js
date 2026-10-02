@@ -2,8 +2,8 @@
   "name": "jelban.js",
   "version": "1.0.0",
   "description": "Another email addresses filter; filters out disposable and addresses' alias",
-  "main": "dist/src/index",
-  "typings": "dist/src/index.d.ts",
+  "main": "dist/index",
+  "typings": "dist/index.d.ts",
   "scripts": {
     "build": "tsc --build",
     "clean": "tsc --build --clean",
@@ -18,11 +18,11 @@
     "doc-gen": "typedoc src/index.ts"
   },
   "files": [
-    "dist/src/*"
+    "dist"
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Fcmam5/jelbann-js.git"
+    "url": "git+https://github.com/Fcmam5/jelban-js.git"
   },
   "keywords": [
     "email",
@@ -32,14 +32,14 @@
   "author": "Fortas Abdeldjalil (Fcmam5)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Fcmam5/jelbann-js/issues"
+    "url": "https://github.com/Fcmam5/jelban-js/issues"
   },
-  "homepage": "https://github.com/Fcmam5/jelbann-js#readme",
+  "homepage": "https://github.com/Fcmam5/jelban-js#readme",
   "devDependencies": {
     "@eslint/js": "^9.22.0",
-    "@stryker-mutator/core": "^8.7.1",
-    "@stryker-mutator/jest-runner": "^8.7.1",
-    "@stryker-mutator/typescript-checker": "^8.7.1",
+    "@stryker-mutator/core": "^10.0.0",
+    "@stryker-mutator/jest-runner": "^10.0.0",
+    "@stryker-mutator/typescript-checker": "^10.0.0",
     "@types/jest": "^29.5.14",
     "eslint": "^9.22.0",
     "eslint-config-prettier": "^10.1.1",
