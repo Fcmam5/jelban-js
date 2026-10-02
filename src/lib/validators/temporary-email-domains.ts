@@ -177,6 +177,7 @@ const temporaryEmailDomains = [
   'bouncr.com',
   'boxformail.in',
   'boximail.com',
+  'boxomail.live',
   'boxtemp.com.br',
   'breadtimes.press',
   'brefmail.com',
