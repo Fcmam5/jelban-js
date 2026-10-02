@@ -1,26 +1,22 @@
-import { GmailProvider } from './gmail';
-import { OutlookProvider } from './outlook';
+import { getDomain } from '../helpers/email-addresses';
+import { GMAIL_DOMAINS, GmailProvider } from './gmail';
+import { OUTLOOK_DOMAINS, OutlookProvider } from './outlook';
 import { IProvider } from './provider.interface';
 
 /** Picks the provider matching an address's domain. */
 export const ProviderRouter: IProviderRouter = {
   route: (emailAddress: string) => {
-    const domain = emailAddress.toLocaleLowerCase().substring(emailAddress.lastIndexOf('@') + 1);
+    const domain = getDomain(emailAddress);
 
-    switch (domain.split('.')[0]) {
-      case 'gmail':
-      case 'googlemail':
-        return GmailProvider;
-
-      case 'hotmail':
-      case 'live':
-      case 'msn':
-      case 'outlook':
-      case 'windowslive':
-        return OutlookProvider;
-      default:
-        throw new Error(`No provider found for "${domain}" (for ${emailAddress})`);
+    if (GMAIL_DOMAINS.includes(domain)) {
+      return GmailProvider;
     }
+
+    if (OUTLOOK_DOMAINS.includes(domain)) {
+      return OutlookProvider;
+    }
+
+    throw new Error(`No provider found for "${domain}" (for ${emailAddress})`);
   },
 };
 
