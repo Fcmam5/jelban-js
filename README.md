@@ -50,6 +50,14 @@ Also, users may choose to use the aliases when registering to your applications,
 
 Store email addresses in both formats, the user input and your normalized format, and when checking if an address is used you can rely on the normalized one, this may cause another issue if a user wants to change from their address `johnsmith@gmail.com` to `john.smith@gmail.com` in their profile settings, then you know best what to do :)
 
+### Issue #2
+
+Jelban does not validate email syntax, on purpose: use the validation library or regex you prefer. It only looks at the domain of the address you give it, so `isValid('garbage')` returns `true`.
+
+#### Recommendation
+
+Validate first, ideally with the same parser you use to send mail, and pass only the validated address to Jelban. If your validator and mail library parse differently from Jelban, inputs like `<a@mohmal.com>` or `a@mohmal.com,x@y.z` can slip through as non-disposable. Non-string input and addresses over 254 characters are always rejected.
+
 ## Usage
 
 ```
