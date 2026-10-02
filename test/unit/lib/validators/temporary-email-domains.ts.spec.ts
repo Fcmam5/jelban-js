@@ -43,6 +43,10 @@ describe('Disposable email domains list', () => {
     expect(domains.length).toEqual(new Set(domains).size);
   });
 
+  it('should be frozen so consumers cannot mutate the shared list', () => {
+    expect(Object.isFrozen(domains)).toBe(true);
+  });
+
   it('should only contain lowercase hostnames', () => {
     const invalid = domains.filter(
       (d) => !/^[a-z0-9.-]+$/.test(d) || !d.includes('.') || d.startsWith('.') || d.endsWith('.'),

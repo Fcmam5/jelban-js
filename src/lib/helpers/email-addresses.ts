@@ -26,7 +26,7 @@ export const getDomain = (emailAddress: string) => {
 };
 
 /** Lowercased lookup set for {@link matchesDomain}. */
-export const toDomainSet = (domains: string[]) => new Set(domains.map((d) => d.toLowerCase()));
+export const toDomainSet = (domains: readonly string[]) => new Set(domains.map((d) => d.toLowerCase()));
 
 /** `true` if `domain` is in `domains` or is a subdomain of an entry. Never matches domains over 253 chars. */
 export const matchesDomain = (domain: string, domains: ReadonlySet<string>) => {

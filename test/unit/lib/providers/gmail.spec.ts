@@ -51,6 +51,13 @@ describe('Providers/Gmail', () => {
       },
     );
 
+    it.each(['+a@gmail.com', '.@gmail.com', '...@googlemail.com', '@gmail.com'])(
+      'should throw instead of collapsing %s to an empty local part',
+      (emailAddress) => {
+        expect(() => GmailProvider.getNormalizedAddress(emailAddress)).toThrow('Empty local part');
+      },
+    );
+
     describe('remove dots', () => {
       it.each(['john.doe@gmail.com', 'jo.hn.d.oe@gmail.com', 'j.o.h.n.d.o.e@gmail.com'])(
         `%s => ${normalizedEmailAddress}`,

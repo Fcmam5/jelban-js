@@ -2979,4 +2979,4 @@ const temporaryEmailDomains = [
 
 // Stryker restore StringLiteral
 
-export default temporaryEmailDomains;
+export default Object.freeze(temporaryEmailDomains);

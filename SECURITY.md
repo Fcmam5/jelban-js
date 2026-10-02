@@ -57,7 +57,7 @@ When using `jelban.js` in your application:
 
 - The disposable domains list is static and incomplete. It only changes when a new version is released.
 - Jelban does not validate email syntax by design, so `isValid('garbage')` returns `true`.
-- `normalize()` collapses aliases (Gmail dots, `+tag`). It does not validate its input, so malformed addresses can normalize to the same value (e.g. `+a@gmail.com` and `.@gmail.com`).
+- `normalize()` collapses aliases (Gmail dots, `+tag`). It does not validate its input; addresses with nothing left of the local part after normalization (e.g. `+a@gmail.com`) are returned unchanged, only trimmed and lowercased.
 - Inputs that are not strings, or are longer than 254 characters, are rejected by `isValid()`. `isDisposable()` throws a `TypeError` for non-strings.
 
 ## Acknowledgments

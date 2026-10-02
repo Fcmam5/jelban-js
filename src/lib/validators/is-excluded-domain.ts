@@ -4,7 +4,7 @@ import { ValidationPipe } from './Validator.interfaces';
 export default class IsExcludedDomainValidator implements ValidationPipe {
   ruleName = 'IsExcludedDomainValidator';
 
-  disposableEmailDomains: string[];
+  disposableEmailDomains: readonly string[];
 
   excludedDomains: string[];
 
@@ -27,6 +27,6 @@ export default class IsExcludedDomainValidator implements ValidationPipe {
 }
 
 export interface IEmailAddressesFilter {
-  disposableEmailDomains: string[];
+  disposableEmailDomains: readonly string[];
   excludedDomains?: string[];
 }

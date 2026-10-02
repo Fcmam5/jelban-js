@@ -20,7 +20,12 @@ export const GmailProvider: IProvider = {
     }
 
     const local = emailAddress.slice(0, emailAddress.lastIndexOf('@'));
+    const normalizedLocal = local.trim().toLowerCase().split('+')[0].split('.').join('');
 
-    return local.trim().toLowerCase().split('+')[0].split('.').join('').concat(AT_GMAIL_DOT_COM);
+    if (!normalizedLocal) {
+      throw new Error('Empty local part after normalization!');
+    }
+
+    return normalizedLocal.concat(AT_GMAIL_DOT_COM);
   },
 };

@@ -35,7 +35,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Domain lookups use a `Set` instead of scanning an array
 - `Jelban.isValid()` rejects non-string input and addresses over 254 characters (returns `false`, or throws the usual `Error`); non-strings used to cause a raw `TypeError`
-- `GmailProvider` throws for domains other than `gmail.com` / `googlemail.com` instead of returning a malformed address
+- `GmailProvider` throws for domains other than `gmail.com` / `googlemail.com`, and when nothing is left of the local part (e.g. `+a@gmail.com`), instead of returning a malformed address
 - Error messages JSON-escape the address and truncate it to 100 characters
 - Plus-tag stripping no longer uses regexes
 - Build uses `tsdown` instead of `tsc`; entry files are now `dist/index.cjs` and `dist/index.mjs`

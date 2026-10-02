@@ -15,8 +15,13 @@ export const OutlookProvider: IProvider = {
     }
 
     const local = emailAddress.slice(0, emailAddress.lastIndexOf('@'));
+    const normalizedLocal = local.trim().toLowerCase().split('+')[0];
 
-    return local.trim().toLowerCase().split('+')[0].concat(`@${domain}`);
+    if (!normalizedLocal) {
+      throw new Error('Empty local part after normalization!');
+    }
+
+    return normalizedLocal.concat(`@${domain}`);
   },
 };
 
