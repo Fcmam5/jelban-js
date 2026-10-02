@@ -28,6 +28,18 @@ describe('Providers/Gmail', () => {
       );
     });
 
+    it('should map googlemail.com to gmail.com', () => {
+      expect(GmailProvider.getNormalizedAddress('john.doe@googlemail.com')).toBe(normalizedEmailAddress);
+    });
+
+    it('should only rewrite the domain, not the local part', () => {
+      expect(GmailProvider.getNormalizedAddress('googlemail.com@googlemail.com')).toBe('googlemailcom@gmail.com');
+    });
+
+    it('should drop everything after + even across newlines', () => {
+      expect(GmailProvider.getNormalizedAddress('john+a\nb@gmail.com')).toBe('john@gmail.com');
+    });
+
     describe('remove dots', () => {
       it.each(['john.doe@gmail.com', 'jo.hn.d.oe@gmail.com', 'j.o.h.n.d.o.e@gmail.com'])(
         `%s => ${normalizedEmailAddress}`,

@@ -10,20 +10,18 @@ export const OutlookProvider: IProvider = {
     const emailAddressToReturn = emailAddress.toLocaleLowerCase().split('@');
     const domain = emailAddressToReturn[1];
 
-    if (!validOutlookDomains.find((dm) => dm === domain)) {
+    if (!OUTLOOK_DOMAINS.includes(domain)) {
       throw new Error(`"${domain}" is not a valid Microsoft Outlook domain!`);
     }
 
-    return emailAddressToReturn[0]
-      .toLowerCase()
-      .replace(/(\+[^@]+)/, '')
-      .concat(`@${domain}`);
+    return emailAddressToReturn[0].toLowerCase().split('+')[0].concat(`@${domain}`);
   },
 };
 
 // Stryker disable StringLiteral
-const validOutlookDomains = [
+export const OUTLOOK_DOMAINS = [
   'hotmail.com',
+  'msn.com',
   'outlook.com',
   'outlook.sa',
   'windowslive.com',
