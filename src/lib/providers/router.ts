@@ -2,6 +2,7 @@ import { GmailProvider } from './gmail';
 import { OutlookProvider } from './outlook';
 import { IProvider } from './provider.interface';
 
+/** Picks the provider matching an address's domain. */
 export const ProviderRouter: IProviderRouter = {
   route: (emailAddress: string) => {
     const domain = emailAddress.toLocaleLowerCase().substring(emailAddress.lastIndexOf('@') + 1);
@@ -24,5 +25,6 @@ export const ProviderRouter: IProviderRouter = {
 };
 
 export interface IProviderRouter {
+  /** @throws Error if no provider handles the domain. */
   route(emailAddress: string): IProvider;
 }

@@ -4,6 +4,7 @@ const GMAIL_DOT_COM = 'gmail.com';
 const GOOGLEMAIL_DOT_COM = 'googlemail.com';
 const AT_GMAIL_DOT_COM = `@${GMAIL_DOT_COM}`;
 
+/** Gmail: ignores case, dots and `+tag`; `googlemail.com` maps to `gmail.com`. */
 export const GmailProvider: IProvider = {
   getNormalizedAddress(emailAddress: string): string {
     // TODO: Optimize me

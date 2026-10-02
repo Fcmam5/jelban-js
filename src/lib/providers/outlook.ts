@@ -1,5 +1,10 @@
 import { IProvider } from './provider.interface';
 
+/**
+ * Outlook/Hotmail/Live: ignores case and `+tag`.
+ *
+ * @throws Error if the domain is not a known Microsoft domain.
+ */
 export const OutlookProvider: IProvider = {
   getNormalizedAddress(emailAddress: string): string {
     const emailAddressToReturn = emailAddress.toLocaleLowerCase().split('@');
