@@ -1,4 +1,4 @@
-import { getDomain, matchesDomain } from '../helpers/email-addresses';
+import { getDomain, matchesDomain, toDomainSet } from '../helpers/email-addresses';
 import { ValidationPipe } from './Validator.interfaces';
 
 export default class IsExcludedDomainValidator implements ValidationPipe {
@@ -8,23 +8,22 @@ export default class IsExcludedDomainValidator implements ValidationPipe {
 
   excludedDomains: string[];
 
-  private excludedDomainsMerged: string[];
+  private disposableSet: ReadonlySet<string>;
+
+  private excludedSet: ReadonlySet<string>;
 
   constructor(params: IEmailAddressesFilter) {
     this.disposableEmailDomains = params.disposableEmailDomains;
     this.excludedDomains = params.excludedDomains || [];
-    this.excludedDomainsMerged = [...this.excludedDomains, ...this.disposableEmailDomains];
+    this.disposableSet = toDomainSet(this.disposableEmailDomains);
+    this.excludedSet = toDomainSet(this.excludedDomains);
   }
 
-  isDisposable = (addr: string) => {
-    return matchesDomain(getDomain(addr), this.disposableEmailDomains);
-  };
+  isDisposable = (addr: string) => matchesDomain(getDomain(addr), this.disposableSet);
 
-  isInExcludedDomain = (addr: string) => {
-    return matchesDomain(getDomain(addr), this.excludedDomains);
-  };
+  isInExcludedDomain = (addr: string) => matchesDomain(getDomain(addr), this.excludedSet);
 
-  isValid = (addr: string) => !matchesDomain(getDomain(addr), this.excludedDomainsMerged);
+  isValid = (addr: string) => !this.isDisposable(addr) && !this.isInExcludedDomain(addr);
 }
 
 export interface IEmailAddressesFilter {

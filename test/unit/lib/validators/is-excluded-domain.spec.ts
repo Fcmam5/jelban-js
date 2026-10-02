@@ -20,6 +20,15 @@ describe('Is Excluded domains validator', () => {
         expect(validator.isValid('alice@wonderla.nd')).toBeFalsy();
       });
 
+      it('should match excluded domains case-insensitively, including subdomains', () => {
+        const validator2 = new IsExcludedDomainValidator({
+          disposableEmailDomains: [],
+          excludedDomains: ['Wonderla.ND'],
+        });
+
+        expect(validator2.isValid('alice@a.b.wonderla.nd')).toBeFalsy();
+      });
+
       it('should return true if exclude domain list is empty', () => {
         const validator2 = new IsExcludedDomainValidator({ disposableEmailDomains: [''] });
         expect(validator2.isValid('hmida@domain.dz')).toBeTruthy();
