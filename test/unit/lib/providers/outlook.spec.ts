@@ -27,6 +27,7 @@ describe('Providers/Outlook', () => {
         ['John.doe+important@live.com', 'john.doe@live.com'],
         ['John.doe+important@windowslive.com', 'john.doe@windowslive.com'],
         ['John.doe+important@outlook.com', 'john.doe@outlook.com'],
+        ['John.doe+important@msn.com', 'john.doe@msn.com'],
       ])('%s => %s', (emailAddress: string, expected: string) => {
         expect(OutlookProvider.getNormalizedAddress(emailAddress)).toBe(expected);
       });

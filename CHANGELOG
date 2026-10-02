@@ -6,6 +6,40 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
+## [Unreleased]
+
+## [1.1.0] - 2026-10-02
+
+### Added
+
+- `isDisposable()` checks an address against the disposable domains list
+- `normalize()` returns the canonical form of an address (Gmail, Outlook), for deduplication
+- `ValidationPipe` type export
+- TSDoc on the public API
+- ESM and CJS builds with an `exports` map, and `sideEffects: false` for tree shaking
+- `jelban.js/domains` entry exporting `temporaryEmailDomains`
+
+### Fixed
+
+- `noDisposableEmailAddresses: false` was ignored (config used `|| true`)
+- `excludeDomains` had no effect when `noDisposableEmailAddresses` was `false`
+- Domain checks are now case-insensitive and ignore surrounding spaces
+- Subdomains of blocked domains are blocked too (`foo.10minutemail.com`)
+- Provider routing matches the exact domain, not the first label (`gmail.evil.com` is no longer routed to Gmail)
+- `msn.com` was routed to the Outlook provider but rejected by it
+- Gmail normalization only rewrites `googlemail.com` in the domain part
+- Missing `mohmal` domain
+
+### Changed
+
+- Domain lookups use a `Set` instead of scanning an array
+- Plus-tag stripping no longer uses regexes
+- Build uses `tsdown` instead of `tsc`; entry files are now `dist/index.cjs` and `dist/index.mjs`
+
+### Removed
+
+- `noGmailAliases` and `noOutlookAliases` options: they never had any effect. Use `normalize()` to deduplicate aliases. TypeScript users passing them will get a type error.
+
 ## [1.0.0] - 2023-02-20
 
 ### Added

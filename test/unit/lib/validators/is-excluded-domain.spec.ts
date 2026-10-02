@@ -20,6 +20,15 @@ describe('Is Excluded domains validator', () => {
         expect(validator.isValid('alice@wonderla.nd')).toBeFalsy();
       });
 
+      it('should match excluded domains case-insensitively, including subdomains', () => {
+        const validator2 = new IsExcludedDomainValidator({
+          disposableEmailDomains: [],
+          excludedDomains: ['Wonderla.ND'],
+        });
+
+        expect(validator2.isValid('alice@a.b.wonderla.nd')).toBeFalsy();
+      });
+
       it('should return true if exclude domain list is empty', () => {
         const validator2 = new IsExcludedDomainValidator({ disposableEmailDomains: [''] });
         expect(validator2.isValid('hmida@domain.dz')).toBeTruthy();
@@ -41,6 +50,18 @@ describe('Is Excluded domains validator', () => {
 
       it('should return true if the provided email address is not in the list', () => {
         expect(validator.isValid('alice@wonderla.nd')).toBeTruthy();
+      });
+
+      it('should ignore case and surrounding spaces', () => {
+        expect(validator.isValid(' Alice@MOHMAL.in ')).toBeFalsy();
+      });
+
+      it('should match subdomains', () => {
+        expect(validator.isValid('alice@foo.mohmal.in')).toBeFalsy();
+      });
+
+      it('should not match lookalike domains', () => {
+        expect(validator.isValid('alice@notmohmal.in')).toBeTruthy();
       });
     });
   });

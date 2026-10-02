@@ -1,18 +1,16 @@
 import { IProvider } from './provider.interface';
 
 const GMAIL_DOT_COM = 'gmail.com';
-const GOOGLEMAIL_DOT_COM = 'googlemail.com';
 const AT_GMAIL_DOT_COM = `@${GMAIL_DOT_COM}`;
 
+export const GMAIL_DOMAINS = [GMAIL_DOT_COM, 'googlemail.com'];
+
+/** Gmail: ignores case, dots and `+tag`; `googlemail.com` maps to `gmail.com`. */
 export const GmailProvider: IProvider = {
   getNormalizedAddress(emailAddress: string): string {
-    // TODO: Optimize me
-    return emailAddress
-      .toLowerCase()
-      .replace(GOOGLEMAIL_DOT_COM, GMAIL_DOT_COM)
-      .replace(/(\+[^@]+)/, '')
-      .split(AT_GMAIL_DOT_COM)[0]
-      .replace(/\./g, '')
-      .concat(AT_GMAIL_DOT_COM);
+    const at = emailAddress.lastIndexOf('@');
+    const local = at === -1 ? emailAddress : emailAddress.slice(0, at);
+
+    return local.toLowerCase().split('+')[0].split('.').join('').concat(AT_GMAIL_DOT_COM);
   },
 };

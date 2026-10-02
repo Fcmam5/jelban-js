@@ -23,6 +23,17 @@ describe('Route to provider', () => {
     });
   });
 
+  it('should ignore domain case', () => {
+    expect(ProviderRouter.route('alice@GMAIL.com')).toBe(GmailProvider);
+  });
+
+  it.each(['alice@gmail.evil.com', 'alice@hotmail.dz', 'alice@notgmail.com'])(
+    'should not route lookalike domain (%s)',
+    (emailAddress) => {
+      expect(() => ProviderRouter.route(emailAddress)).toThrow('No provider found');
+    },
+  );
+
   it('should throw if the provider is not supported', () => {
     expect(() => ProviderRouter.route('alice@wonderla.nd')).toThrow(
       'No provider found for "wonderla.nd" (for alice@wonderla.nd)',
