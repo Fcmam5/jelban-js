@@ -1,7 +1,18 @@
+import { isAddressLike } from './helpers/email-addresses';
 import IsAllowedDomainValidator from './validators/is-allowed-domain';
 import IsExcludedDomainValidator from './validators/is-excluded-domain';
 import temporaryEmailDomains from './validators/temporary-email-domains';
 import { ValidationPipe } from './validators/Validator.interfaces';
+
+const INVALID_INPUT_RULE = 'InvalidInput';
+
+const MAX_DESCRIBED_LENGTH = 100;
+
+const describeInput = (input: unknown) => {
+  if (typeof input !== 'string') return `of type ${typeof input}`;
+
+  return JSON.stringify(input.length > MAX_DESCRIBED_LENGTH ? `${input.slice(0, MAX_DESCRIBED_LENGTH)}...` : input);
+};
 
 /** Email address filter: blocks disposable domains and enforces allow/exclude lists. */
 export class Jelban {
@@ -46,15 +57,17 @@ export class Jelban {
    * @throws Error listing the violated rules.
    */
   isValid(emailAddress: string, throwOnError = true): boolean {
-    const violatedRules = this._validators.filter((validator) => !validator.isValid(emailAddress));
+    const violatedRules = isAddressLike(emailAddress)
+      ? this._validators.filter((validator) => !validator.isValid(emailAddress)).map((validator) => validator.ruleName)
+      : [INVALID_INPUT_RULE];
 
     if (violatedRules.length === 0) {
       return true;
     }
 
     if (throwOnError) {
-      const rules = violatedRules.map((validator) => `"${validator.ruleName}"`);
-      throw new Error(`Invalid email address "${emailAddress}", rules: [${rules.join(', ')}]`);
+      const rules = violatedRules.map((rule) => `"${rule}"`);
+      throw new Error(`Invalid email address ${describeInput(emailAddress)}, rules: [${rules.join(', ')}]`);
     }
 
     return false;

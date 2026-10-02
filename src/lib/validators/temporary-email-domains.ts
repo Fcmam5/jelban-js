@@ -2654,7 +2654,6 @@ const temporaryEmailDomains = [
   'wil.kr',
   'xxi2.com',
   'ye.vc',
-  'qq.com',
   '001.igg.biz',
   '0x00.name',
   '1000rebates.stream',

@@ -33,6 +33,10 @@ describe('Providers/Outlook', () => {
       });
     });
 
+    it('should ignore surrounding spaces and domain case', () => {
+      expect(OutlookProvider.getNormalizedAddress(' John.Doe+x@HOTMAIL.com ')).toBe(normalizedEmailAddress);
+    });
+
     it('should throw if the given address has not a valid outlook domain', () => {
       expect(() => OutlookProvider.getNormalizedAddress('alice@hotmail.dz')).toThrow(
         '"hotmail.dz" is not a valid Microsoft Outlook domain!',

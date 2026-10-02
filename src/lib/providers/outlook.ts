@@ -1,3 +1,4 @@
+import { getDomain } from '../helpers/email-addresses';
 import { IProvider } from './provider.interface';
 
 /**
@@ -7,14 +8,15 @@ import { IProvider } from './provider.interface';
  */
 export const OutlookProvider: IProvider = {
   getNormalizedAddress(emailAddress: string): string {
-    const emailAddressToReturn = emailAddress.toLocaleLowerCase().split('@');
-    const domain = emailAddressToReturn[1];
+    const domain = getDomain(emailAddress);
 
     if (!OUTLOOK_DOMAINS.includes(domain)) {
       throw new Error(`"${domain}" is not a valid Microsoft Outlook domain!`);
     }
 
-    return emailAddressToReturn[0].toLowerCase().split('+')[0].concat(`@${domain}`);
+    const local = emailAddress.slice(0, emailAddress.lastIndexOf('@'));
+
+    return local.trim().toLowerCase().split('+')[0].concat(`@${domain}`);
   },
 };
 

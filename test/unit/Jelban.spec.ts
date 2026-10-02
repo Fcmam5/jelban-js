@@ -108,4 +108,40 @@ describe('Jelban', () => {
       expect(new Jelban().isValid('a@mohmal.com', false)).toBe(false);
     });
   });
+
+  describe('hostile input', () => {
+    const jelban = new Jelban();
+
+    it.each([[undefined], [null], [123], [{}], [['a@mohmal.com']], [Symbol('x')]])(
+      'should reject non-string %p without throwing when throwOnError is false',
+      (input) => {
+        expect(jelban.isValid(input as unknown as string, false)).toBe(false);
+      },
+    );
+
+    it('should throw a regular Error for non-strings when throwOnError is true', () => {
+      expect(() => jelban.isValid(['a@mohmal.com'] as unknown as string)).toThrow('Invalid email address');
+    });
+
+    it('should reject addresses longer than 254 characters quickly', () => {
+      const start = Date.now();
+
+      expect(jelban.isValid(`x@${'a.'.repeat(50_000)}com`, false)).toBe(false);
+      expect(Date.now() - start).toBeLessThan(100);
+    });
+
+    it('should escape and truncate the address in the error message', () => {
+      const address = `a\n<b>${'x'.repeat(500)}@mohmal.com`;
+
+      try {
+        jelban.isValid(address);
+        throw new Error('should have thrown');
+      } catch (e) {
+        const { message } = e as Error;
+
+        expect(message).not.toContain('\n');
+        expect(message.length).toBeLessThan(250);
+      }
+    });
+  });
 });
