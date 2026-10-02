@@ -9,7 +9,7 @@ TLDR; See [Usage](#usage) And [Wiki](https://github.com/Fcmam5/jelban-js/wiki).
 ## Features
 
 - Filters and checks for disposable email addresses from temporary email services (like 10minutemail and Mohmal), see the full list of domains at [`lib/validators/temporary-email-domains`](./src//lib/validators/temporary-email-domains.ts).
-- Filters and checks for aliases that lead to the same email box from providers like [Gmail](#gmail).
+- Normalizes aliased addresses that lead to the same mailbox (providers like [Gmail](#gmail)) with `normalize()`, to detect duplicates.
 - Filters for emails within an allowed domain list, or that are not in an excluded domain list.
 
 ## Supported Providers
@@ -72,13 +72,23 @@ console.log(jelban.isValid('kavi@boxomail.live', false)); // prints "false"
 
 ### Parameters
 
-| Param                        | Description                                                                                                | Required | Default |
-| ---------------------------- | ---------------------------------------------------------------------------------------------------------- | -------- | ------- |
-| `noGmailAliases`             | When set to `true`, this will exclude Gmail aliases as described in [providers/gmail](#gmail)              | `false`  | `true`  |
-| `noOutlookAliases`           | When set to `true`, this will exclude Outlook aliases as described in [providers/Outlook](#outlookhotmail) | `false`  | `true`  |
-| `noDisposableEmailAddresses` | When set to `true`, this will exclude temporary email addresses from services like `mohmal.com`            | `false`  | `true`  |
-| `excludeDomains`             | A list of email address domains that you may want to exclude                                               | `false`  | `[]`    |
-| `allowDomains`               | A list of restricted domains you want to include, default is `[]` which will skip this validation rule     | `false`  | `[]`    |
+| Param                        | Description                                                                                            | Required | Default |
+| ---------------------------- | ------------------------------------------------------------------------------------------------------ | -------- | ------- |
+| `noDisposableEmailAddresses` | When set to `true`, this will exclude temporary email addresses from services like `mohmal.com`        | `false`  | `true`  |
+| `excludeDomains`             | A list of email address domains to exclude (case-insensitive, subdomains included)                     | `false`  | `[]`    |
+| `allowDomains`               | A list of restricted domains you want to include, default is `[]` which will skip this validation rule | `false`  | `[]`    |
+
+### Normalizing addresses
+
+`normalize()` returns the canonical form of an address, useful for detecting duplicate sign-ups. See [Gmail](#gmail) and [Outlook/Hotmail](#outlookhotmail) for the rules. Other domains are only trimmed and lowercased.
+
+```typescript
+import { normalize } from 'jelban.js';
+
+normalize('John.Doe+news@Gmail.com'); // "johndoe@gmail.com"
+normalize('jane+work@hotmail.fr'); // "jane@hotmail.fr"
+normalize(' Someone@Example.COM '); // "someone@example.com"
+```
 
 ## Development
 
