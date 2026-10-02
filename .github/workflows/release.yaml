@@ -1,20 +1,93 @@
 name: Release Node.js Package
 
 on:
+  workflow_dispatch:
+    inputs:
+      publish:
+        description: 'Publish to npm'
+        type: boolean
+        required: true
+        default: false
   release:
-    types: [created]
+    types: [published]
 
 jobs:
-  build:
+  build-and-verify:
+    name: Build, Test & Package
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
         with:
-          node-version-file: '.nvmrc'
-          registry-url: 'https://registry.npmjs.org'
-      - run: npm install
+          node-version-file: .nvmrc
+          cache: npm
+
+      - run: npm ci --ignore-scripts
+      - run: npm run lint
+      - run: npm test
       - run: npm run build
-      - run: npm publish --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Pack tarball (dry-run inspection)
+        run: |
+          mkdir -p /tmp/pack
+          npm pack --pack-destination /tmp/pack
+          tarball=$(ls /tmp/pack/*.tgz)
+          sha256sum "$tarball" > /tmp/pack/sha256sum.txt
+          cat <<EOF >> "$GITHUB_STEP_SUMMARY"
+          ### Package contents
+          \`\`\`
+          $(tar -tzf "$tarball")
+          \`\`\`
+          ### SHA-256
+          \`\`\`
+          $(cat /tmp/pack/sha256sum.txt)
+          \`\`\`
+          EOF
+          echo "=== Package contents ==="
+          tar -tzf "$tarball"
+          echo "=== SHA-256 ==="
+          cat /tmp/pack/sha256sum.txt
+
+      - name: Upload tarball artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: npm-tarball
+          path: /tmp/pack/*.tgz
+          if-no-files-found: error
+          retention-days: 1
+
+  publish:
+    name: Publish to npm
+    needs: build-and-verify
+    if: github.event_name == 'release' || (github.event_name == 'workflow_dispatch' && inputs.publish)
+    runs-on: ubuntu-latest
+    environment:
+      name: release
+      url: https://www.npmjs.com/package/jelban.js
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      # `.nvmrc` is needed for setup-node and `registry-url` only; we publish
+      # the verified tarball produced by `build-and-verify`, not the workspace.
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Download verified tarball
+        uses: actions/download-artifact@v8
+        with:
+          name: npm-tarball
+          path: /tmp/pack
+
+      - name: Publish verified tarball to npm
+        run: |
+          tarball=$(ls /tmp/pack/*.tgz)
+          echo "Publishing $tarball"
+          npm publish "$tarball" --access public --provenance

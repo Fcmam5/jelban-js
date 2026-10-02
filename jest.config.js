@@ -5,4 +5,6 @@ module.exports = {
   testEnvironment: 'node',
   collectCoverage: true,
   testMatch: ['**/test/unit/**/*.spec.ts'],
+  testPathIgnorePatterns: ['/node_modules/', '<rootDir>/.stryker-tmp/'],
+  modulePathIgnorePatterns: ['<rootDir>/.stryker-tmp/'],
 };

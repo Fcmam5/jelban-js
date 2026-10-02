@@ -107,3 +107,6 @@ dist
 .stryker-tmp
 reports/mutation/
 docs/
+
+# macOS
+.DS_Store
