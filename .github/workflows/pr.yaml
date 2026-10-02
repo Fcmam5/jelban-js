@@ -2,6 +2,11 @@ name: Pull-requests workflow
 
 on:
   workflow_dispatch:
+    inputs:
+      deploy_docs:
+        description: 'Deploy docs to GitHub Pages'
+        type: boolean
+        default: false
   pull_request:
     branches:
       - develop
@@ -17,18 +22,15 @@ permissions:
 
 jobs:
   buildAndTest:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     env:
       STRYKER_DASHBOARD_API_KEY: ${{ secrets.STRYKER_DASHBOARD_API_KEY }}
     name: Build and test
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Use Node.js 
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version-file: '.nvmrc'
           cache: 'npm'
@@ -40,24 +42,31 @@ jobs:
       - run: npm run lint
       - run: npm run mutate
 
-      - uses: codecov/codecov-action@v5
+      - uses: codecov/codecov-action@v7
         if: github.ref == 'refs/heads/develop' && github.event_name == 'push'
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
 
       - name: Publish docs
-        if: github.ref == 'refs/heads/develop' && github.event_name == 'push'
         run: npm run doc-gen
 
       - id: upload-documentation
         name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v5
         with:
           path: docs/
           name: typedocs
 
+  deploy-pages:
+    name: Deploy documentation to GitHub Pages
+    needs: buildAndTest
+    if: (github.event_name == 'push' && github.ref == 'refs/heads/develop') || (github.event_name == 'workflow_dispatch' && inputs.deploy_docs)
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
       - id: deployment
-        name: Deploy documentation to GitHub Pages
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
         with:
           artifact_name: typedocs
