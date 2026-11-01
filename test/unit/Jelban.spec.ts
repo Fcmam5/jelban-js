@@ -71,7 +71,7 @@ describe('Jelban', () => {
         mockIsValid2.mockReturnValue(false);
         mockIsValid3.mockReturnValue(false);
 
-        expect(() => jelban.isValid('alice@wonderla.nd')).toThrowError(
+        expect(() => jelban.isValid('alice@wonderla.nd')).toThrow(
           'Invalid email address "alice@wonderla.nd", rules: ["rule#2", "rule#3"]',
         );
       });
