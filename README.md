@@ -12,6 +12,15 @@ TLDR; See [Usage](#usage) And [Wiki](https://github.com/Fcmam5/jelban-js/wiki).
 - Normalizes aliased addresses that lead to the same mailbox (providers like [Gmail](#gmail)) with `normalize()`, to detect duplicates.
 - Filters for emails within an allowed domain list, or that are not in an excluded domain list.
 
+## Alternatives
+
+Jelban is a small project. For production use, consider these more mature and widely used options:
+
+- [disposable-email-domains](https://github.com/ivolo/disposable-email-domains): large, community-maintained list of disposable domains.
+- [mailchecker](https://github.com/FGRibreau/mailchecker): cross-language disposable email detection.
+- [validator.js](https://github.com/validatorjs/validator.js): `isEmail()` for syntax validation and `normalizeEmail()` for provider-aware normalization.
+- [normalize-email](https://github.com/johnotander/normalize-email): normalizes `+` and `.` aliases for uniqueness checks.
+
 ## Supported Providers
 
 ### Gmail
