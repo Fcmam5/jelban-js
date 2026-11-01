@@ -62,7 +62,7 @@
   },
   "homepage": "https://github.com/Fcmam5/jelban-js#readme",
   "devDependencies": {
-    "@eslint/js": "^9.22.0",
+    "@eslint/js": "^10.0.1",
     "@stryker-mutator/core": "^10.0.0",
     "@stryker-mutator/jest-runner": "^10.0.0",
     "@stryker-mutator/typescript-checker": "^10.0.0",
