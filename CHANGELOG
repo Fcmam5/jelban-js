@@ -8,6 +8,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Upgraded dev dependencies: Jest 30, ESLint 10, typescript-eslint 8.72, Prettier 3.9, Stryker 10.1, TypeDoc 0.28.20, tsdown 0.23.4
+- `tsconfig.json` sets `rootDir` explicitly, as required by TypeScript 6 (TypeScript stays on 5.9 until ts-jest/typedoc/typescript-eslint support newer majors)
+
 ## [1.1.0] - 2026-10-02
 
 ### Added
